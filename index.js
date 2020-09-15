@@ -1,5 +1,8 @@
 let Twit = require('twit');
+const express = require('express');
+let app = express();
 require('dotenv').config();
+
 
 const Bot = new Twit({
     consumer_key:         process.env.CONSUMER_KEY,
@@ -54,7 +57,9 @@ function BotInit() {
     contTudo++
 }
 
-console.clear();
-console.log('O estúpido tá online!');
-BotInit();
-setInterval(BotInit, 60000);
+app.listen(5000, () => {
+    console.clear();
+    console.log('O estúpido tá online!');
+    BotInit();
+    setInterval(BotInit, 60000);
+})
