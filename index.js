@@ -1,5 +1,4 @@
 let Twit = require('twit');
-
 require('dotenv').config();
 
 const Bot = new Twit({
@@ -10,38 +9,52 @@ const Bot = new Twit({
     timeout_ms:           60 * 1000,
 });
 
-console.log('Bot rodando!');
+var contRt = 1;
+var contTudo = 1;
 
 function BotInit() {
-    var query = {
+    let query = {
         q: 'mano',
+        count: 100000
     }
-    
-    Bot.get(`search/tweets`, query, BotGotLatestTweet);
 
-    function BotGotLatestTweet (error, data, response) {
-        if (error) {
-            console.log(`Bot could not find latest tweet, : ` + error);
-        } else {
-            var id = {
-                id : data.statuses[0].id_str
-            }
-            
-            Bot.post(`statuses/retweet/:id`, id, BotRetweeted);
+    Bot.get('search/tweets', query, function(err, data, response) {
+        for (let i in data) {
+            if (!data.hasOwnProperty(i)) continue;
 
-            function BotRetweeted(error, response) {
-                    if (error) {
-                    console.log(`Bot could not retweet, : ` + error);
+            let obj = data[i];
+
+            for (let prop in obj) {
+                if (!obj.hasOwnProperty(prop)) continue;
+
+                if (err) {
+                    console.log(`Bot could not find latest tweet, : ` + err);
                 } else {
-                    console.log(`Bot retweeted : ` + id.id);
+                    var id = {
+                        id : data.statuses[0].id_str
+                    }
+                    
+                    Bot.post(`statuses/retweet/:id`, id, BotRetweeted);
+        
+                    function BotRetweeted(error, response) {
+                            if (error) {
+                            // console.log(`Bot could not retweet, : ` + error);
+                        } else {
+                            console.log(`Bot retweeted: ` + id.id);
+                            console.log('Número de RTs: ' + contRt);
+                            contRt++;
+                        }
+                    }
                 }
-
-                // console.log(data);
             }
         }
-    }
+    });
+
+    console.log('Número de vezes que o programa tá rodando: ' + contTudo);
+    contTudo++
 }
 
-setInterval(BotInit, 36000);
-
+console.clear();
+console.log('O estúpido tá online!');
 BotInit();
+setInterval(BotInit, 60000);
