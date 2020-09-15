@@ -60,6 +60,7 @@ function BotInit() {
 app.listen(5000, () => {
     console.clear();
     console.log('O estúpido tá online!');
+
     BotInit();
     setInterval(BotInit, 60000);
-})
+});
