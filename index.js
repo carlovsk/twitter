@@ -11,12 +11,18 @@ const Bot = new Twit({
 });
 
 var contRt = 1;
-var contTudo = 1;
+var contAll = 1;
 
 function BotInit() {
+    let date = new Date();
+    
+    let year = date.getFullYear();
+    let month = (date.getMonth()) + 1;
+    let day = date.getDate();
+
     let query = {
-        q: 'mano',
-        count: 100000
+        q: `mano since:${year}-${month}-${day}`,
+        count: 100000,
     }
 
     Bot.get('search/tweets', query, function(err, data, response) {
@@ -45,18 +51,18 @@ function BotInit() {
                             console.log('Número de RTs: ' + contRt);
                             contRt++;
                         }
-                    }
+                    } 
                 }
             }
         }
     });
 
-    console.log('Número de vezes que o programa tá rodando: ' + contTudo);
-    contTudo++
+    console.log('Número de vezes que o programa tá rodando: ' + contAll);
+    contAll++;
 }
 
 console.clear();
 console.log('O estúpido tá online!');
 
 BotInit();
-setInterval(BotInit, 60000);
+setInterval(BotInit, 5000);
