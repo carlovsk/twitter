@@ -21,7 +21,9 @@ function BotInit() {
     let day = date.getDate();
 
     let query = {
-        q: `mano since:${year}-${month}-${day}`,
+        // q: `cave`,
+        // q: `cave since:${year}-${month}-${day}`,
+        q: `among us since:${year}-${month}-${day}`,
         count: 100000,
     }
 
@@ -47,8 +49,12 @@ function BotInit() {
                             if (error) {
                             // console.log(`Bot could not retweet, : ` + error);
                         } else {
-                            console.log(`Bot retweeted: ` + id.id);
-                            console.log('Número de RTs: ' + contRt);
+                            let curHour = date.getHours();
+                            let curMinute = date.getMinutes();
+                            let curSeconds = date.getSeconds();
+
+                            console.log(`Bot retweeted: ${id.id} at ${curHour}:${curMinute}:${curSeconds}.`);
+                            console.log(`Número de RTs: ${contRt} \n`);
                             contRt++;
                         }
                     } 
@@ -57,12 +63,12 @@ function BotInit() {
         }
     });
 
-    console.log('Número de vezes que o programa tá rodando: ' + contAll);
+    console.log(`Contagem: ${contAll}`);
     contAll++;
 }
 
 console.clear();
-console.log('O estúpido tá online!');
+console.log('Bot ligado!');
 
 BotInit();
-setInterval(BotInit, 5000);
+setInterval(BotInit, 3000);
