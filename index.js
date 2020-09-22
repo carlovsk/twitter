@@ -71,4 +71,4 @@ console.clear();
 console.log('Bot ligado!');
 
 BotInit();
-setInterval(BotInit, 3000);
+setInterval(BotInit, 10000);
