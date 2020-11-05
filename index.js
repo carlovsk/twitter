@@ -14,16 +14,18 @@ const Bot = new Twit({
 let contRt = 1;
 let contAll = 1;
 
+Bot.post('statuses/update', { status: `i'm online!` });
+
 function BotInit() {
-  let date = new Date();
+  const date = new Date();
 
-  let year = date.getFullYear();
-  let month = (date.getMonth()) + 1;
-  let day = date.getDate();
+  const year = date.getFullYear();
+  const month = (date.getMonth()) + 1;
+  const day = date.getDate();
 
-  let query = {
-    q: `among us since:${year}-${month}-${day}`,
-    count: 100000,
+  const query = {
+    q: `javascript since:${year}-${month}-${day}`,
+    count: 10000,
   }
 
   Bot.get('search/tweets', query, function (err, data, response) {
@@ -48,9 +50,14 @@ function BotInit() {
             if (error) {
               // console.log(`Bot could not retweet, : ` + error);
             } else {
-              let curHour = date.getHours();
-              let curMinute = date.getMinutes();
-              let curSeconds = date.getSeconds();
+              const zeroFill = n => {
+                return ('0' + n).slice(-2);
+              }
+
+              let curHour = zeroFill(date.getHours());
+              let curMinute = zeroFill(date.getMinutes());
+              let curSeconds = zeroFill(date.getSeconds());
+
 
               console.log('\x1b[32m', `Bot retweeted: ${id.id} at ${curHour}:${curMinute}:${curSeconds}.`);
               console.log('\x1b[32m', `Número de RTs: ${contRt} \n`);
@@ -64,11 +71,9 @@ function BotInit() {
 
   console.log('\x1b[32m', `Contagem: ${contAll}`);
   contAll++;
-
-  setTimeout(BotInit, 10000);
 }
 
 console.clear();
 console.log('\x1b[32m', 'Bot ligado!');
 
-BotInit();
+setInterval(BotInit, 30000);
