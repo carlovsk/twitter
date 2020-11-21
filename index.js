@@ -68,4 +68,4 @@ const BotInit = () => {
   console.log('opa');
 }
 
-setInterval(BotInit, 1000);
+setInterval(BotInit, 30000);
