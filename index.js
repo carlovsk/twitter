@@ -1,5 +1,7 @@
 import Twit from 'twit';
 import auth from 'dotenv';
+import fs from 'fs';
+import { randomInt } from 'crypto';
 
 auth.config();
 
@@ -11,69 +13,59 @@ const Bot = new Twit({
   timeout_ms: 60 * 1000,
 });
 
-let contRt = 1;
-let contAll = 1;
+const images = [
+  './images/capivara-1.jpg',
+  './images/capivara-2.jpeg',
+  './images/capivara-3.jpg',
+  './images/capivara-4.jpg',
+  './images/capivara-5.jpg',
+  './images/capivara-6.jpg',
+  './images/capivara-7.jpg',
+  './images/capivara-8.jpg',
+  './images/capivara-9.jpeg',
+  './images/capivara-10.jpg',
+  './images/capivara-11.jpg',
+  './images/capivara-12.jpeg',
+  './images/capivara-13.jpeg',
+  './images/capivara-14.jpg',
+  './images/capivara-15.png',
+  './images/capivara-16.jpeg',
+  './images/capivara-17.jpg',
+  './images/capivara-18.jpg',
+  './images/capivara-19.jpg',
+  './images/capivara-20.jpg',
+  './images/capivara-21.jpg',
+  './images/capivara-22.png',
+  './images/capivara-23.png',
+  './images/capivara-24.png',
+  './images/capivara-25.png',
+  './images/capivara-26.png',
+];
 
-Bot.post('statuses/update', { status: `i'm online!` });
+const BotInit = () => {
 
-function BotInit() {
-  const date = new Date();
+  const random = randomInt(0, images.length);
+  const image = fs.readFileSync(images[random], { encoding: 'base64' });
 
-  const year = date.getFullYear();
-  const month = (date.getMonth()) + 1;
-  const day = date.getDate();
+  Bot.post('media/upload', { media_data: image }, (err, data) => {
+    const mediaIdStr = data.media_id_string
+    const altText = "Small flowers in a planter on a sunny balcony, blossoming."
+    const meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
 
-  const query = {
-    q: `javascript since:${year}-${month}-${day}`,
-    count: 10000,
-  }
+    Bot.post('media/metadata/create', meta_params, (err, data, response) => {
+      if (err) console.log(err);
 
-  Bot.get('search/tweets', query, function (err, data, response) {
-    for (let i in data) {
-      if (!data.hasOwnProperty(i)) continue;
+      const params = { status: '', media_ids: [mediaIdStr] };
 
-      let obj = data[i];
+      Bot.post('statuses/update', params, (err, data) => {
+        if (err) console.log(err);
 
-      for (let prop in obj) {
-        if (!obj.hasOwnProperty(prop)) continue;
-
-        if (err) {
-          console.log('\x1b[32m', `Bot could not find latest tweet, : ` + err);
-        } else {
-          var id = {
-            id: data.statuses[0].id_str
-          }
-
-          Bot.post(`statuses/retweet/:id`, id, BotRetweeted);
-
-          function BotRetweeted(error, response) {
-            if (error) {
-              // console.log(`Bot could not retweet, : ` + error);
-            } else {
-              const zeroFill = n => {
-                return ('0' + n).slice(-2);
-              }
-
-              let curHour = zeroFill(date.getHours());
-              let curMinute = zeroFill(date.getMinutes());
-              let curSeconds = zeroFill(date.getSeconds());
-
-
-              console.log('\x1b[32m', `Bot retweeted: ${id.id} at ${curHour}:${curMinute}:${curSeconds}.`);
-              console.log('\x1b[32m', `Número de RTs: ${contRt} \n`);
-              contRt++;
-            }
-          }
-        }
-      }
-    }
+        console.log('postei')
+      });
+    })
   });
 
-  console.log('\x1b[32m', `Contagem: ${contAll}`);
-  contAll++;
+  console.log('opa');
 }
 
-console.clear();
-console.log('\x1b[32m', 'Bot ligado!');
-
-setInterval(BotInit, 30000);
+setInterval(BotInit, 1000);
