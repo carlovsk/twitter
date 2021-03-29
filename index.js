@@ -43,14 +43,14 @@ const images = [
 ];
 
 const BotInit = () => {
-
   const random = randomInt(0, images.length);
   const image = fs.readFileSync(images[random], { encoding: 'base64' });
 
   Bot.post('media/upload', { media_data: image }, (err, data) => {
-    const mediaIdStr = data.media_id_string
-    const altText = "Small flowers in a planter on a sunny balcony, blossoming."
-    const meta_params = { media_id: mediaIdStr, alt_text: { text: altText } }
+    const mediaIdStr = data.media_id_string;
+    const altText =
+      'Small flowers in a planter on a sunny balcony, blossoming.';
+    const meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
 
     Bot.post('media/metadata/create', meta_params, (err, data, response) => {
       if (err) console.log(err);
@@ -60,12 +60,12 @@ const BotInit = () => {
       Bot.post('statuses/update', params, (err, data) => {
         if (err) console.log(err);
 
-        console.log('postei')
+        console.log('postei');
       });
-    })
+    });
   });
 
-  console.log('opa');
-}
+  console.log('Running.');
+};
 
 setInterval(BotInit, 30000);
