@@ -40,6 +40,9 @@ const images = [
   './images/capivara-24.png',
   './images/capivara-25.png',
   './images/capivara-26.png',
+  './images/capivara-27.jpg',
+  './images/capivara-28.jpg',
+  './images/capivara-29.jpg',
 ];
 
 const BotInit = () => {
@@ -60,12 +63,12 @@ const BotInit = () => {
       Bot.post('statuses/update', params, (err, data) => {
         if (err) console.log(err);
 
-        console.log('postei');
+        console.log('New photo posted.');
       });
     });
   });
 
-  console.log('Running.');
+  console.log('On the line 😎.');
 };
 
 setInterval(BotInit, 30000);
