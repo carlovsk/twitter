@@ -51,8 +51,7 @@ const BotInit = () => {
 
   Bot.post('media/upload', { media_data: image }, (err, data) => {
     const mediaIdStr = data.media_id_string;
-    const altText =
-      'Small flowers in a planter on a sunny balcony, blossoming.';
+    const altText = 'Capivara shot.';
     const meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
 
     Bot.post('media/metadata/create', meta_params, (err, data, response) => {
@@ -67,8 +66,9 @@ const BotInit = () => {
       });
     });
   });
-
-  console.log('On the line 😎.');
 };
+
+console.log('On the line 😎.');
+
 
 setInterval(BotInit, 30000);
