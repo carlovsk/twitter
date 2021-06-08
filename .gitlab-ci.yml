@@ -17,7 +17,7 @@ deploy_master:
     - yarn config set prefix /usr/local
     - yarn global add serverless
     - yarn
-    - export 
+    - export ENVIRONMENT_NAME
     - echo $ENVIRONMENT_NAME
     - export CONSUMER_KEY
     - export CONSUMER_SECRET
