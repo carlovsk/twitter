@@ -20,3 +20,5 @@ plugins:
 functions:
   twitter:
     handler: src/index.bot
+    events:
+      - schedule: rate(1 minute)
