@@ -6,9 +6,12 @@ provider:
   runtime: nodejs12.x
   stage: ${env:ENVIRONMENT_NAME}
   region: us-east-1
-  # environment:
-  #   DBT_TOKEN: ${env:DBT_TOKEN}
-  #   ENVIRONMENT_NAME: ${self:provider.stage}
+  environment:
+    ENVIRONMENT_NAME: ${self:provider.stage}
+    CONSUMER_KEY: ${env:CONSUMER_KEY}
+    CONSUMER_SECRET: ${env:CONSUMER_SECRET}
+    ACCESS_TOKEN: ${env:ACCESS_TOKEN}
+    ACCESS_TOKEN_SECRET: ${env:ACCESS_TOKEN_SECRET}
 
 plugins:
   - serverless-offline
