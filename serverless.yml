@@ -1,0 +1,19 @@
+# Happy Coding!
+service: bot-twitter
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${env:ENVIRONMENT_NAME}
+  region: us-east-1
+  # environment:
+  #   DBT_TOKEN: ${env:DBT_TOKEN}
+  #   ENVIRONMENT_NAME: ${self:provider.stage}
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+functions:
+  twitter:
+    handler: src/index.bot
