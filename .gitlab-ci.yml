@@ -23,11 +23,11 @@ deploy_master:
     - export CONSUMER_SECRET
     - export ACCESS_TOKEN
     - export ACCESS_TOKEN_SECRET
-    # - export AWS_ACCESS_KEY_ID
+    - export AWS_ACCESS_KEY_ID
     # - echo $AWS_ACCESS_KEY_ID
-    # - export AWS_SECRET_ACCESS_KEY
-    # - export AWS_REGION
+    - export AWS_SECRET_ACCESS_KEY
+    - export AWS_REGION
     # - echo $AWS_REGION
-    # - export AWS_DEFAULT_REGION
+    - export AWS_DEFAULT_REGION
   script: 
     - sls deploy
