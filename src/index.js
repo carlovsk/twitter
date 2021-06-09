@@ -1,8 +1,7 @@
 const Twit = require('twit');
 const fs = require('fs-extra');
 const { randomInt } = require('crypto');
-require('dotenv').config()
-
+require('dotenv').config();
 
 module.exports.bot = async () => {
   const Bot = new Twit({
@@ -48,20 +47,18 @@ module.exports.bot = async () => {
   const random = randomInt(0, images.length);
   const image = fs.readFileSync(images[random], { encoding: 'base64' });
 
-  Bot.post('media/upload', { media_data: image }, (error, data) => {
+  await Bot.post('media/upload', { media_data: image }, async (error, data) => {
     if (error) throw error;
     const mediaIdStr = data.media_id_string;
     const altText = 'Capivara shot.';
     const meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
 
-    Bot.post('media/metadata/create', meta_params, (erro, data, response) => {
+    await Bot.post('media/metadata/create', meta_params, async (erro) => {
       if (erro) throw erro;
-
       const params = { status: '', media_ids: [mediaIdStr] };
 
-      Bot.post('statuses/update', params, (err, data) => {
+      await Bot.post('statuses/update', params, (err) => {
         if (err) throw err;
-
         console.log('New photo posted.');
       });
     });
