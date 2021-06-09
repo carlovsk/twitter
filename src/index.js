@@ -53,12 +53,10 @@ module.exports.bot = async () => {
     const altText = 'Capivara shot.';
     const meta_params = { media_id: mediaIdStr, alt_text: { text: altText } };
 
-    await Bot.post('media/metadata/create', meta_params, async (erro) => {
-      if (erro) throw erro;
+    await Bot.post('media/metadata/create', meta_params, async () => {
       const params = { status: '', media_ids: [mediaIdStr] };
 
-      await Bot.post('statuses/update', params, (err) => {
-        if (err) throw err;
+      await Bot.post('statuses/update', params, () => {
         console.log('New photo posted.');
       });
     });
