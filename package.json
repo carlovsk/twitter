@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js",
-    "old": "babel-node oldIndex.js",
-    "dev": "nodemon --exec babel-node index.js"
+    "start": "sls offline",
+    "deploy": "sls deploy"
   },
   "license": "MIT",
   "author": "Carlos Daniel",
