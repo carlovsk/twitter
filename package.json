@@ -3,23 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "sls offline",
-    "deploy": "sls deploy"
+    "add-package": "sst add-package",
+    "start": "sst start",
+    "build": "sst build",
+    "deploy": "sst deploy",
+    "remove": "sst remove",
+    "cdk": "sst cdk"
   },
   "license": "MIT",
   "author": "Carlos Daniel",
   "dependencies": {
-    "dotenv": "^8.2.0",
+    "@serverless-stack/cli": "0.48.0",
+    "@serverless-stack/resources": "0.48.0",
     "fs-extra": "^10.0.0",
     "twit": "^2.2.11"
-  },
-  "devDependencies": {
-    "eslint": "^7.28.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.4.0",
-    "nodemon": "^2.0.4",
-    "serverless-dotenv-plugin": "^3.9.0",
-    "serverless-offline": "^7.0.0"
   }
 }
