@@ -1,7 +1,6 @@
 const Twit = require('twit');
 const fs = require('fs-extra');
 const { randomInt } = require('crypto');
-require('dotenv').config();
 
 module.exports.bot = async () => {
   const Bot = new Twit({
