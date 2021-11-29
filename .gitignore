@@ -50,3 +50,7 @@ env.yml
 
 # Jetbrains IDEs
 .idea
+
+# SST
+.build
+.sst

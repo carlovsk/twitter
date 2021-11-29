@@ -2,7 +2,7 @@ const Twit = require('twit');
 const fs = require('fs-extra');
 const { randomInt } = require('crypto');
 
-module.exports.bot = async () => {
+module.exports.main = async () => {
   const Bot = new Twit({
     consumer_key: process.env.CONSUMER_KEY,
     consumer_secret: process.env.CONSUMER_SECRET,

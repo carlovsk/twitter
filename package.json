@@ -17,5 +17,8 @@
     "@serverless-stack/resources": "0.48.0",
     "fs-extra": "^10.0.0",
     "twit": "^2.2.11"
+  },
+  "eslintConfig": {
+    "extends": ["serverless-stack"]
   }
 }
